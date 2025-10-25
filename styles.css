@@ -1,70 +1,66 @@
 body {
     margin: 0;
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
     display: flex;
     height: 100vh;
-    background-color: #f5f3fa;
-    color: #2e2d3a;
+    background: linear-gradient(to right, #f9f8ff, #e0dfff);
 }
 
-nav {
-    width: 240px;
-    background-color: #3e2f5b;
+.sidebar {
+    width: 260px;
+    background: linear-gradient(to bottom, #7f00ff, #e100ff);
     color: #fff;
-    padding: 20px;
-    overflow-y: auto;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
 }
 
-nav h2 {
-    color: #c39eff;
-    margin-bottom: 20px;
-    font-size: 16px;
-    border-bottom: 1px solid #5e4b81;
-    padding-bottom: 10px;
+.sidebar h2 {
+    margin-bottom: 25px;
+    font-size: 20px;
+    text-align: center;
 }
 
-nav a {
-    color: #d8c9ff;
+.sidebar a {
+    color: #f0f0ff;
     text-decoration: none;
-    display: block;
-    margin-bottom: 10px;
-    font-size: 14px;
+    margin-bottom: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
-nav a:hover {
-    color: #fff;
+.sidebar a:hover {
+    transform: translateX(5px);
+    color: #ffd6ff;
 }
 
-main {
+.main {
     flex: 1;
-    padding: 40px 50px;
+    padding: 40px;
     overflow-y: auto;
 }
 
 h1 {
-    color: #3e2f5b;
-    border-bottom: 2px solid #c39eff;
-    padding-bottom: 10px;
+    color: #5d2fff;
+    margin-bottom: 25px;
 }
 
-h2 {
-    color: #6b4f9c;
-    margin-top: 30px;
+.card {
+    background: linear-gradient(to right, #ffffff, #f3e6ff);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
 }
 
-ul {
-    margin-left: 20px;
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.card-content {
+    display: none;
+    margin-top: 10px;
     line-height: 1.6;
-}
-
-li {
-    margin-bottom: 6px;
-}
-
-.exam-tip {
-    background: #f3e9ff;
-    border-left: 4px solid #c39eff;
-    padding: 10px 15px;
-    margin: 20px 0;
-    font-style: italic;
 }

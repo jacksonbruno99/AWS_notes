@@ -3,23 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AWS CloudOps Study Portal</title>
+<title>Jackson's Learning Notes</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<nav>
-    <h2>AWS CloudOps</h2>
-    <a href="aws_day1_infrastructure.html">Day 1 – Global Infrastructure</a>
+<div class="sidebar">
+    <h2>Jackson's Learning Notes</h2>
+    <a href="aws_day1_infrastructure.html">Day 1 – Global Infra</a>
     <a href="aws_day2_iam.html">Day 2 – IAM, Users, Roles</a>
     <a href="aws_day3_vpc.html">Day 3 – VPC & Subnets</a>
-    <!-- Add more links for future days -->
-</nav>
+</div>
 
-<main>
-    <h1>Welcome to Your AWS CloudOps Study Portal</h1>
-    <p>This portal contains your day-by-day AWS CloudOps notes for SOA-C03 exam preparation. Click the links in the sidebar to view detailed notes for each day.</p>
-</main>
+<div class="main">
+    <h1>Welcome to Jackson's AWS CloudOps Study Portal</h1>
+    <p>Click the links in the sidebar to view detailed notes for each day.</p>
+
+    <div class="card" onclick="toggleContent('introContent')">
+        <h2>Getting Started</h2>
+        <div class="card-content" id="introContent">
+            <p>Use this portal for daily AWS study. Each card contains key points, examples, and exam tips.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleContent(id) {
+    const content = document.getElementById(id);
+    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+}
+</script>
 
 </body>
 </html>
