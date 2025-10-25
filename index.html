@@ -3,39 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jackson's Learning Notes</title>
+<title>Jackson's AWS Learning Notes</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- Sidebar -->
 <div id="sidebar" class="sidebar expanded">
     <div class="sidebar-header">
-        <h2>Jackson's Notes</h2>
+        <h2 class="sidebar-title">Notes</h2>
         <button id="toggleSidebar">⯈</button>
     </div>
     <nav class="sidebar-links">
         <a href="index.html" data-day="Home">Home</a>
-        <a href="aws_day1_infrastructure.html" data-day="Day 1 – Global Infra">Day 1 – Global Infra</a>
-        <a href="aws_day2_iam.html" data-day="Day 2 – IAM, Users, Roles">Day 2 – IAM, Users, Roles</a>
+        <a href="aws_day1_infrastructure.html" data-day="Day 1 – Global Infra">Day 1</a>
+        <a href="aws_day2_iam.html" data-day="Day 2 – IAM">Day 2</a>
+        <a href="aws_day3_vpc.html" data-day="Day 3 – VPC & Networking">Day 3</a>
     </nav>
 </div>
 
-<!-- Main content -->
 <div class="main">
-    <header class="main-header" id="currentTopic">Welcome</header>
-    <h1>Welcome to Jackson's AWS CloudOps Study Portal</h1>
-
-    <div class="card" onclick="toggleContent('introContent')">
-        <h2>Getting Started</h2>
-        <div class="card-content" id="introContent">
-            <p>Use this portal for daily AWS study. Each card contains key points, examples, and exam tips.</p>
-        </div>
-    </div>
+    <header class="main-header" id="currentTopic">Home – Jackson's AWS Learning Notes</header>
+    <section>
+        <h2>Welcome</h2>
+        <p>This is your AWS study portal. Use the sidebar to navigate each day’s detailed notes.</p>
+        <p>All notes are in a clean, readable layout with sidebar toggle and responsive design.</p>
+    </section>
 </div>
 
 <script>
-// Sidebar toggle with smooth animation
 const sidebar = document.getElementById('sidebar');
 const toggleBtn = document.getElementById('toggleSidebar');
 const currentTopic = document.getElementById('currentTopic');
@@ -43,33 +38,15 @@ const currentTopic = document.getElementById('currentTopic');
 toggleBtn.addEventListener('click', () => {
     sidebar.classList.toggle('expanded');
     sidebar.classList.toggle('collapsed');
-});
-
-// Rotate arrow smoothly
-toggleBtn.addEventListener('click', () => {
     toggleBtn.classList.toggle('rotated');
 });
 
-// Update header when link clicked
 document.querySelectorAll('.sidebar-links a').forEach(link => {
     link.addEventListener('click', (e) => {
         const dayTopic = link.getAttribute('data-day');
         currentTopic.textContent = dayTopic;
-        // Animate header fade
-        currentTopic.classList.add('fade');
-        setTimeout(() => currentTopic.classList.remove('fade'), 500);
     });
 });
-
-// Card toggle with slide animation
-function toggleContent(id) {
-    const content = document.getElementById(id);
-    if(content.style.maxHeight) {
-        content.style.maxHeight = null;
-    } else {
-        content.style.maxHeight = content.scrollHeight + "px";
-    }
-}
 </script>
 
 </body>

@@ -11,71 +11,86 @@
 <!-- Sidebar -->
 <div id="sidebar" class="sidebar expanded">
     <div class="sidebar-header">
-        <h2>Jackson's Notes</h2>
+        <h2 class="sidebar-title">Notes</h2>
         <button id="toggleSidebar">⯈</button>
     </div>
     <nav class="sidebar-links">
         <a href="index.html" data-day="Home">Home</a>
-        <a href="aws_day1_infrastructure.html" data-day="Day 1 – Global Infra">Day 1 – Global Infra</a>
-        <a href="aws_day2_iam.html" data-day="Day 2 – IAM, Users, Roles">Day 2 – IAM, Users, Roles</a>
-        <a href="aws_day3_vpc.html" data-day="Day 3 – VPC & Networking">Day 3 – VPC & Networking</a>
-        <!-- Add more days as needed -->
+        <a href="aws_day1_infrastructure.html" data-day="Day 1 – Global Infra">Day 1</a>
+        <a href="aws_day2_iam.html" data-day="Day 2 – IAM">Day 2</a>
+        <a href="aws_day3_vpc.html" data-day="Day 3 – VPC & Networking">Day 3</a>
     </nav>
 </div>
 
-<!-- Main content -->
 <div class="main">
     <header class="main-header" id="currentTopic">Day 2 – IAM, Users, Roles</header>
 
-    <div class="card" onclick="toggleContent('iam')">
+    <section>
         <h2>IAM Overview</h2>
-        <div class="card-content" id="iam">
-            <ul>
-                <li>AWS Identity and Access Management (IAM) controls access to AWS services.</li>
-                <li>Supports users, groups, roles, and policies.</li>
-                <li>Use **least privilege principle** — grant only necessary permissions.</li>
-                <li>IAM is a **global service**, no region selection needed.</li>
-            </ul>
-        </div>
-    </div>
+        <ul>
+            <li>AWS Identity and Access Management (IAM) allows secure access control to AWS services.</li>
+            <li>IAM is global — no region selection needed.</li>
+            <li>Manage users, groups, roles, and policies.</li>
+            <li>Use least privilege principle — minimum permissions only.</li>
+            <li>Enable MFA for root and privileged accounts.</li>
+            <li>Policies are JSON-based and define allowed/denied actions.</li>
+        </ul>
+    </section>
 
-    <div class="card" onclick="toggleContent('usersGroups')">
+    <section>
         <h2>Users & Groups</h2>
-        <div class="card-content" id="usersGroups">
-            <ul>
-                <li>Create IAM users for individuals; avoid sharing root credentials.</li>
-                <li>Groups help manage permissions collectively.</li>
-                <li>Assign policies to users/groups for controlled access.</li>
-            </ul>
-        </div>
-    </div>
+        <ul>
+            <li>Create IAM users for individuals; avoid sharing root credentials.</li>
+            <li>Groups manage permissions collectively.</li>
+            <li>Attach policies to users or groups for controlled access.</li>
+            <li>Managed policies = reusable; inline policies = specific to a user/group.</li>
+            <li>Always prefer groups over direct user permissions.</li>
+        </ul>
+    </section>
 
-    <div class="card" onclick="toggleContent('rolesPolicies')">
-        <h2>Roles & Policies</h2>
-        <div class="card-content" id="rolesPolicies">
-            <ul>
-                <li>Roles allow services or users to assume permissions temporarily.</li>
-                <li>Policies define permissions (JSON-based).</li>
-                <li>Use managed policies for simplicity or inline policies for fine-grained control.</li>
-            </ul>
-        </div>
-    </div>
+    <section>
+        <h2>Roles</h2>
+        <ul>
+            <li>Roles provide temporary permissions that can be assumed.</li>
+            <li>Use cases: cross-account access, EC2/S3 access, Lambda execution.</li>
+            <li>AssumeRole API allows temporary permission granting.</li>
+            <li>Policies attached to roles define what they can do.</li>
+        </ul>
+    </section>
 
-    <div class="card" onclick="toggleContent('examTips')">
+    <section>
+        <h2>Policies</h2>
+        <ul>
+            <li>Policies define permissions in JSON format.</li>
+            <li>Types: managed policies (AWS or custom) and inline policies (specific to user/group/role).</li>
+            <li>Evaluation logic: Default deny → explicit allow → explicit deny overrides all.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Access Keys & MFA</h2>
+        <ul>
+            <li>Access keys allow programmatic access via CLI or SDK.</li>
+            <li>Enable MFA for extra security.</li>
+            <li>Root account: avoid daily use; create admin users with MFA.</li>
+        </ul>
+    </section>
+
+    <section>
         <h2>Exam Tips</h2>
-        <div class="card-content" id="examTips">
-            <ul>
-                <li>Remember: IAM is **global**, not regional.</li>
-                <li>Best practice: use **MFA** for critical accounts.</li>
-                <li>Cross-account access usually involves **roles**, not sharing credentials.</li>
-            </ul>
-        </div>
-    </div>
+        <ul>
+            <li>IAM is global → exam may ask which service is global.</li>
+            <li>Roles are temporary/assumable; users are persistent.</li>
+            <li>Always follow least privilege principle.</li>
+            <li>Cross-account access → use roles, not shared credentials.</li>
+            <li>Protect root account with MFA; limited usage only.</li>
+            <li>Policy evaluation order: Deny > Allow > Default Deny.</li>
+        </ul>
+    </section>
 
 </div>
 
 <script>
-// Sidebar toggle
 const sidebar = document.getElementById('sidebar');
 const toggleBtn = document.getElementById('toggleSidebar');
 const currentTopic = document.getElementById('currentTopic');
@@ -86,25 +101,12 @@ toggleBtn.addEventListener('click', () => {
     toggleBtn.classList.toggle('rotated');
 });
 
-// Update header when link clicked
 document.querySelectorAll('.sidebar-links a').forEach(link => {
     link.addEventListener('click', (e) => {
         const dayTopic = link.getAttribute('data-day');
         currentTopic.textContent = dayTopic;
-        currentTopic.classList.add('fade');
-        setTimeout(() => currentTopic.classList.remove('fade'), 500);
     });
 });
-
-// Card toggle with animation
-function toggleContent(id) {
-    const content = document.getElementById(id);
-    if(content.style.maxHeight){
-        content.style.maxHeight = null;
-    } else {
-        content.style.maxHeight = content.scrollHeight + "px";
-    }
-}
 </script>
 
 </body>
