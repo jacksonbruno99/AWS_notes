@@ -8,69 +8,81 @@
 </head>
 <body>
 
-<nav>
-    <h2>AWS CloudOps</h2>
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>Jackson's Learning Notes</h2>
     <a href="index.html">Home</a>
-    <a href="aws_day1_infrastructure.html">Day 1 – Global Infrastructure</a>
+    <a href="aws_day1_infrastructure.html">Day 1 – Global Infra</a>
     <a href="aws_day2_iam.html">Day 2 – IAM, Users, Roles</a>
-    <a href="aws_day3_vpc.html">Day 3 – VPC & Subnets</a>
-</nav>
+</div>
 
-<main>
+<!-- Main content -->
+<div class="main">
     <h1>Day 1 – AWS Global Infrastructure</h1>
 
-    <h2>Regions</h2>
-    <ul>
-        <li>Each Region = geographical area with 2+ AZs.</li>
-        <li>Regions are isolated; replication only when configured.</li>
-        <li>Region choice affects latency, cost, compliance, and availability.</li>
-        <li>Not all services exist in every Region → check 
-            <a href="https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/" target="_blank">AWS Regional Services List</a>.
-        </li>
-    </ul>
+    <div class="card" onclick="toggleContent('regions')">
+        <h2>Regions</h2>
+        <div class="card-content" id="regions">
+            <ul>
+                <li>A Region is a geographical area containing two or more Availability Zones (AZs).</li>
+                <li>Each Region is isolated — no automatic replication unless configured.</li>
+                <li>Region choice impacts latency, cost, data residency, and service availability.</li>
+                <li>Not all services are available in every Region — check AWS Regional Services List.</li>
+            </ul>
+        </div>
+    </div>
 
-    <h2>Availability Zones (AZs)</h2>
-    <ul>
-        <li>Each AZ = 1+ physically separate data centers.</li>
-        <li>Low-latency links (1–2 ms) between AZs.</li>
-        <li>Use multi-AZ for high availability (EC2, RDS, ELB).</li>
-    </ul>
+    <div class="card" onclick="toggleContent('az')">
+        <h2>Availability Zones (AZs)</h2>
+        <div class="card-content" id="az">
+            <ul>
+                <li>AZ = one or more physically separate data centers with independent power, cooling, networking.</li>
+                <li>AZs connected via low-latency links (<1–2 ms).</li>
+                <li>Best practice: deploy EC2, RDS, load balancers across ≥2 AZs for high availability.</li>
+            </ul>
+        </div>
+    </div>
 
-    <h2>Edge Locations</h2>
-    <ul>
-        <li>Used by CloudFront, Route 53, Global Accelerator.</li>
-        <li>Provide caching, DNS routing, traffic acceleration.</li>
-        <li>Not compute — don’t confuse with AZs.</li>
-    </ul>
+    <div class="card" onclick="toggleContent('edges')">
+        <h2>Edge Locations</h2>
+        <div class="card-content" id="edges">
+            <ul>
+                <li>Used by CloudFront, Route 53, Global Accelerator.</li>
+                <li>Global cache nodes bring content closer to users.</li>
+                <li>Edge ≠ AZ — Edge = content delivery, not compute.</li>
+            </ul>
+        </div>
+    </div>
 
-    <h2>Local & Wavelength Zones</h2>
-    <ul>
-        <li>Local Zones → bring AWS closer to metro users.</li>
-        <li>Wavelength Zones → 5G / telecom ultra-low latency apps.</li>
-    </ul>
-    <div class="exam-tip">Exam Tip: Which option gives compute near users with single-digit ms latency? → Local/Wavelength Zone.</div>
+    <div class="card" onclick="toggleContent('localzones')">
+        <h2>Local & Wavelength Zones</h2>
+        <div class="card-content" id="localzones">
+            <ul>
+                <li>Local Zones reduce latency in metro areas (media, gaming, etc.).</li>
+                <li>Wavelength Zones = 5G ultra-low-latency apps (telecom edge).</li>
+            </ul>
+        </div>
+    </div>
 
-    <h2>Fault Tolerance</h2>
-    <ul>
-        <li>Multi-AZ → survive single AZ failure.</li>
-        <li>Multi-Region → disaster recovery.</li>
-        <li>S3 & DynamoDB → multi-AZ by default; EC2/RDS/EBS → single-AZ unless configured.</li>
-    </ul>
+    <div class="card" onclick="toggleContent('fault')">
+        <h2>Fault Tolerance Concepts</h2>
+        <div class="card-content" id="fault">
+            <ul>
+                <li>Multi-AZ deployments survive single AZ failures.</li>
+                <li>Multi-Region = disaster recovery and global resilience.</li>
+                <li>S3 & DynamoDB = multi-AZ by default; EC2, RDS, EBS = single-AZ unless configured.</li>
+            </ul>
+        </div>
+    </div>
 
-    <h2>Networking & Latency</h2>
-    <ul>
-        <li>Cross-AZ traffic = free; Cross-Region = billed.</li>
-        <li>Keep data near users to minimize latency and cost.</li>
-    </ul>
+</div>
 
-    <h2>Global Services</h2>
-    <ul>
-        <li>Global: IAM, Route 53, CloudFront, WAF, Organizations.</li>
-        <li>IAM = global, no Region selection.</li>
-    </ul>
-    <div class="exam-tip">Exam Tip: Is IAM regional or global? → Global ✅</div>
-
-</main>
+<script>
+function toggleContent(id) {
+    const content = document.getElementById(id);
+    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+}
+</script>
 
 </body>
 </html>
