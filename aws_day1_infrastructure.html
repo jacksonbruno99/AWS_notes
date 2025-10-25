@@ -9,25 +9,31 @@
 <body>
 
 <!-- Sidebar -->
-<div class="sidebar">
-    <h2>Jackson's Learning Notes</h2>
-    <a href="index.html">Home</a>
-    <a href="aws_day1_infrastructure.html">Day 1 – Global Infra</a>
-    <a href="aws_day2_iam.html">Day 2 – IAM, Users, Roles</a>
+<div id="sidebar" class="sidebar expanded">
+    <div class="sidebar-header">
+        <h2>Jackson's Notes</h2>
+        <button id="toggleSidebar">⯈</button>
+    </div>
+    <nav class="sidebar-links">
+        <a href="index.html" data-day="Home">Home</a>
+        <a href="aws_day1_infrastructure.html" data-day="Day 1 – Global Infra">Day 1 – Global Infra</a>
+        <a href="aws_day2_iam.html" data-day="Day 2 – IAM, Users, Roles">Day 2 – IAM, Users, Roles</a>
+        <!-- Add more days -->
+    </nav>
 </div>
 
 <!-- Main content -->
 <div class="main">
-    <h1>Day 1 – AWS Global Infrastructure</h1>
+    <header class="main-header" id="currentTopic">Day 1 – AWS Global Infrastructure</header>
 
     <div class="card" onclick="toggleContent('regions')">
         <h2>Regions</h2>
         <div class="card-content" id="regions">
             <ul>
                 <li>A Region is a geographical area containing two or more Availability Zones (AZs).</li>
-                <li>Each Region is isolated — no automatic replication unless configured.</li>
-                <li>Region choice impacts latency, cost, data residency, and service availability.</li>
-                <li>Not all services are available in every Region — check AWS Regional Services List.</li>
+                <li>Regions are isolated — no automatic replication unless configured (S3 cross-region, RDS read replicas).</li>
+                <li>Region choice affects latency, cost, data residency, service availability.</li>
+                <li>Not all services available in every Region — check AWS Regional Services List.</li>
             </ul>
         </div>
     </div>
@@ -37,7 +43,7 @@
         <div class="card-content" id="az">
             <ul>
                 <li>AZ = one or more physically separate data centers with independent power, cooling, networking.</li>
-                <li>AZs connected via low-latency links (<1–2 ms).</li>
+                <li>Connected via low-latency links (<1–2 ms).</li>
                 <li>Best practice: deploy EC2, RDS, load balancers across ≥2 AZs for high availability.</li>
             </ul>
         </div>
@@ -48,7 +54,7 @@
         <div class="card-content" id="edges">
             <ul>
                 <li>Used by CloudFront, Route 53, Global Accelerator.</li>
-                <li>Global cache nodes bring content closer to users.</li>
+                <li>Edge nodes bring content closer to users.</li>
                 <li>Edge ≠ AZ — Edge = content delivery, not compute.</li>
             </ul>
         </div>
@@ -78,9 +84,35 @@
 </div>
 
 <script>
+// Sidebar toggle
+const sidebar = document.getElementById('sidebar');
+const toggleBtn = document.getElementById('toggleSidebar');
+const currentTopic = document.getElementById('currentTopic');
+
+toggleBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('expanded');
+    sidebar.classList.toggle('collapsed');
+    toggleBtn.classList.toggle('rotated');
+});
+
+// Update header when link clicked
+document.querySelectorAll('.sidebar-links a').forEach(link => {
+    link.addEventListener('click', (e) => {
+        const dayTopic = link.getAttribute('data-day');
+        currentTopic.textContent = dayTopic;
+        currentTopic.classList.add('fade');
+        setTimeout(() => currentTopic.classList.remove('fade'), 500);
+    });
+});
+
+// Card toggle with animation
 function toggleContent(id) {
     const content = document.getElementById(id);
-    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    if(content.style.maxHeight){
+        content.style.maxHeight = null;
+    } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+    }
 }
 </script>
 

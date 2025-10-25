@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 2 – IAM, Users, Roles</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar expanded">
+    <div class="sidebar-header">
+        <h2>Jackson's Notes</h2>
+        <button id="toggleSidebar">⯈</button>
+    </div>
+    <nav class="sidebar-links">
+        <a href="index.html" data-day="Home">Home</a>
+        <a href="aws_day1_infrastructure.html" data-day="Day 1 – Global Infra">Day 1 – Global Infra</a>
+        <a href="aws_day2_iam.html" data-day="Day 2 – IAM, Users, Roles">Day 2 – IAM, Users, Roles</a>
+        <a href="aws_day3_vpc.html" data-day="Day 3 – VPC & Networking">Day 3 – VPC & Networking</a>
+        <!-- Add more days as needed -->
+    </nav>
+</div>
+
+<!-- Main content -->
+<div class="main">
+    <header class="main-header" id="currentTopic">Day 2 – IAM, Users, Roles</header>
+
+    <div class="card" onclick="toggleContent('iam')">
+        <h2>IAM Overview</h2>
+        <div class="card-content" id="iam">
+            <ul>
+                <li>AWS Identity and Access Management (IAM) controls access to AWS services.</li>
+                <li>Supports users, groups, roles, and policies.</li>
+                <li>Use **least privilege principle** — grant only necessary permissions.</li>
+                <li>IAM is a **global service**, no region selection needed.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card" onclick="toggleContent('usersGroups')">
+        <h2>Users & Groups</h2>
+        <div class="card-content" id="usersGroups">
+            <ul>
+                <li>Create IAM users for individuals; avoid sharing root credentials.</li>
+                <li>Groups help manage permissions collectively.</li>
+                <li>Assign policies to users/groups for controlled access.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card" onclick="toggleContent('rolesPolicies')">
+        <h2>Roles & Policies</h2>
+        <div class="card-content" id="rolesPolicies">
+            <ul>
+                <li>Roles allow services or users to assume permissions temporarily.</li>
+                <li>Policies define permissions (JSON-based).</li>
+                <li>Use managed policies for simplicity or inline policies for fine-grained control.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card" onclick="toggleContent('examTips')">
+        <h2>Exam Tips</h2>
+        <div class="card-content" id="examTips">
+            <ul>
+                <li>Remember: IAM is **global**, not regional.</li>
+                <li>Best practice: use **MFA** for critical accounts.</li>
+                <li>Cross-account access usually involves **roles**, not sharing credentials.</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// Sidebar toggle
+const sidebar = document.getElementById('sidebar');
+const toggleBtn = document.getElementById('toggleSidebar');
+const currentTopic = document.getElementById('currentTopic');
+
+toggleBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('expanded');
+    sidebar.classList.toggle('collapsed');
+    toggleBtn.classList.toggle('rotated');
+});
+
+// Update header when link clicked
+document.querySelectorAll('.sidebar-links a').forEach(link => {
+    link.addEventListener('click', (e) => {
+        const dayTopic = link.getAttribute('data-day');
+        currentTopic.textContent = dayTopic;
+        currentTopic.classList.add('fade');
+        setTimeout(() => currentTopic.classList.remove('fade'), 500);
+    });
+});
+
+// Card toggle with animation
+function toggleContent(id) {
+    const content = document.getElementById(id);
+    if(content.style.maxHeight){
+        content.style.maxHeight = null;
+    } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+    }
+}
+</script>
+
+</body>
+</html>

@@ -9,18 +9,22 @@
 <body>
 
 <!-- Sidebar -->
-<div class="sidebar">
-    <h2>Jackson's Learning Notes</h2>
-    <a href="index.html">Home</a>
-    <a href="aws_day1_infrastructure.html">Day 1 – Global Infra</a>
-    <a href="aws_day2_iam.html">Day 2 – IAM, Users, Roles</a>
-    <!-- Add more days as needed -->
+<div id="sidebar" class="sidebar expanded">
+    <div class="sidebar-header">
+        <h2>Jackson's Notes</h2>
+        <button id="toggleSidebar">⯈</button>
+    </div>
+    <nav class="sidebar-links">
+        <a href="index.html" data-day="Home">Home</a>
+        <a href="aws_day1_infrastructure.html" data-day="Day 1 – Global Infra">Day 1 – Global Infra</a>
+        <a href="aws_day2_iam.html" data-day="Day 2 – IAM, Users, Roles">Day 2 – IAM, Users, Roles</a>
+    </nav>
 </div>
 
 <!-- Main content -->
 <div class="main">
+    <header class="main-header" id="currentTopic">Welcome</header>
     <h1>Welcome to Jackson's AWS CloudOps Study Portal</h1>
-    <p>Click the links in the sidebar to view detailed notes for each day.</p>
 
     <div class="card" onclick="toggleContent('introContent')">
         <h2>Getting Started</h2>
@@ -31,9 +35,40 @@
 </div>
 
 <script>
+// Sidebar toggle with smooth animation
+const sidebar = document.getElementById('sidebar');
+const toggleBtn = document.getElementById('toggleSidebar');
+const currentTopic = document.getElementById('currentTopic');
+
+toggleBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('expanded');
+    sidebar.classList.toggle('collapsed');
+});
+
+// Rotate arrow smoothly
+toggleBtn.addEventListener('click', () => {
+    toggleBtn.classList.toggle('rotated');
+});
+
+// Update header when link clicked
+document.querySelectorAll('.sidebar-links a').forEach(link => {
+    link.addEventListener('click', (e) => {
+        const dayTopic = link.getAttribute('data-day');
+        currentTopic.textContent = dayTopic;
+        // Animate header fade
+        currentTopic.classList.add('fade');
+        setTimeout(() => currentTopic.classList.remove('fade'), 500);
+    });
+});
+
+// Card toggle with slide animation
 function toggleContent(id) {
     const content = document.getElementById(id);
-    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    if(content.style.maxHeight) {
+        content.style.maxHeight = null;
+    } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+    }
 }
 </script>
 
