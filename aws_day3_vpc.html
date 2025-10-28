@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 3 – VPC & Networking | Jackson's Learning Notes</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="toggle-btn" onclick="toggleSidebar()">☰</div>
+    <h2 class="sidebar-title">Notes</h2>
+    <a href="index.html">🏠 Home</a>
+    <a href="aws_day1_infrastructure.html" data-day="Day 1 – Global Infra">Day 1</a>
+    <a href="aws_day2_iam.html" data-day="Day 2 – IAM">Day 2</a>
+    <a href="aws_day3_vpc.html" data-day="Day 3 – VPC & Networking">Day 3</a>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <h1>Day 3 – VPC & Networking</h1>
+  </header>
+
+  <!-- Content -->
+  <main class="content">
+    <section>
+      <h2>What is a VPC?</h2>
+      <p><strong>VPC (Virtual Private Cloud)</strong> is your isolated private network inside AWS — like your own mini data center in the cloud. You define:</p>
+      <ul>
+        <li>IP address range (CIDR block)</li>
+        <li>Subnets (public/private)</li>
+        <li>Route tables</li>
+        <li>Internet gateways and NAT gateways</li>
+      </ul>
+      <p>Each AWS account comes with a default VPC, but <strong>custom VPCs</strong> offer better control and security.</p>
+    </section>
+
+    <section>
+      <h2>Key Components</h2>
+      <h3>Subnets</h3>
+      <ul>
+        <li>Divide your VPC into logical sections (e.g., 10.0.0.0/16 → 10.0.1.0/24)</li>
+        <li><strong>Public subnet:</strong> Route to Internet Gateway.</li>
+        <li><strong>Private subnet:</strong> No direct route to Internet; use NAT Gateway for outbound access.</li>
+      </ul>
+
+      <h3>Route Tables</h3>
+      <ul>
+        <li>Control where traffic goes within your VPC.</li>
+        <li>Each subnet must be associated with a route table.</li>
+        <li>Examples:
+          <ul>
+            <li>0.0.0.0/0 → Internet Gateway (public)</li>
+            <li>0.0.0.0/0 → NAT Gateway (private)</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>Internet Gateway (IGW)</h3>
+      <ul>
+        <li>Enables internet access for public subnets.</li>
+        <li>Attach IGW to your VPC and add it to route tables.</li>
+      </ul>
+
+      <h3>NAT Gateway</h3>
+      <ul>
+        <li>Allows private subnet resources to access the internet securely.</li>
+        <li>Managed by AWS; preferred over NAT Instances.</li>
+      </ul>
+
+      <h3>Security Groups vs NACLs</h3>
+      <ul>
+        <li><strong>Security Groups:</strong> Instance-level, stateful.</li>
+        <li><strong>NACLs:</strong> Subnet-level, stateless.</li>
+        <li>Always prefer SGs for fine-grained control.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Peering, Endpoints & Transit Gateway</h2>
+      <h3>VPC Peering</h3>
+      <ul>
+        <li>Private connection between two VPCs (no transitive routing).</li>
+      </ul>
+
+      <h3>VPC Endpoints</h3>
+      <ul>
+        <li>Access AWS services without Internet Gateway.</li>
+        <li><strong>Interface Endpoint:</strong> Most services.</li>
+        <li><strong>Gateway Endpoint:</strong> S3 and DynamoDB.</li>
+      </ul>
+
+      <h3>Transit Gateway</h3>
+      <ul>
+        <li>Central hub for connecting multiple VPCs and on-premises networks.</li>
+        <li>Scalable and simplifies architecture.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>CIDR, IPs & DNS</h2>
+      <ul>
+        <li>Example: 10.0.0.0/16 → 65,536 IPs.</li>
+        <li>Each subnet reserves 5 IPs for AWS internal use.</li>
+        <li>Elastic IPs = static public IPs.</li>
+        <li>Route 53 integrates with VPC for internal DNS.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Common Architectures</h2>
+      <ul>
+        <li><strong>2-tier:</strong> Web (public) + DB (private)</li>
+        <li><strong>3-tier:</strong> Web → App → DB (multi-subnet)</li>
+        <li><strong>HA Setup:</strong> Deploy across multiple AZs.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Exam Tips</h2>
+      <ul>
+        <li>Default VPC has public subnets and internet access.</li>
+        <li>Security Group = Stateful | NACL = Stateless.</li>
+        <li>Use NAT Gateway for private outbound traffic.</li>
+        <li>No transitive routing in VPC Peering.</li>
+        <li>Gateway Endpoint = private S3/DynamoDB access.</li>
+        <li>One route table per subnet.</li>
+        <li>Non-overlapping CIDR blocks for peering.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
